@@ -228,7 +228,8 @@
       {
         "duration": 15,
         "name": "Maxillo-facial dressing",
-        "uuid": "74d43c99-fee1-4097-904a-e2292711b27f"
+        "uuid": "74d43c99-fee1-4097-904a-e2292711b27f",
+        "color": "#00008B"
       },
       {
         "duration": 20,

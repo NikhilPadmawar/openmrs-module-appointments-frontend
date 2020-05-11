@@ -1,5 +1,5 @@
 import React from "react";
-import { MdStop } from "react-icons/md";
+import classNames from "classnames";
 
 const transformTreeData = (arr) => {
   return arr.map((ele) => {
@@ -8,12 +8,26 @@ const transformTreeData = (arr) => {
       children = transformChild(ele.serviceTypes);
     }
     const newNode = {
-      label: ele.name,
-      value: ele.uuid,
+      title: ele.name,
+      key: ele.uuid,
       ...ele,
     };
     if (ele.color)
-      newNode["icon"] = ele.color && <MdStop style={{ color: ele.color }} />;
+      newNode["icon"] = ele.color && (
+        <i
+          className={classNames("fa fa-stop")}
+          style={{ color: ele.color }}
+          aria-hidden="true"
+        ></i>
+      );
+    else
+      newNode["icon"] = (
+        <i
+          className={classNames("fa fa-stop")}
+          style={{ color: "transparent" }}
+          aria-hidden="true"
+        ></i>
+      );
     if (ele.serviceTypes.length != 0) newNode["children"] = children;
     return newNode;
   });
@@ -22,13 +36,26 @@ const transformTreeData = (arr) => {
 const transformChild = (arr) => {
   return arr.map((ele) => {
     const newNode = {
-      label: ele.name + " " + `[${ele.duration} min]`,
-      value: ele.uuid,
+      title: ele.name + " " + `[${ele.duration} min]`,
+      key: ele.uuid,
       ...ele,
     };
     if (ele.color)
-      newNode["icon"] = ele.color && <MdStop style={{ color: ele.color }} />;
-
+      newNode["icon"] = ele.color && (
+        <i
+          className={classNames("fa fa-stop")}
+          style={{ color: ele.color }}
+          aria-hidden="true"
+        ></i>
+      );
+    else
+      newNode["icon"] = (
+        <i
+          className={classNames("fa fa-stop")}
+          style={{ color: "transparent" }}
+          aria-hidden="true"
+        ></i>
+      );
     return newNode;
   });
 };

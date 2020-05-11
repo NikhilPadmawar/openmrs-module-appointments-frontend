@@ -3,7 +3,7 @@ import "./AppointmentListSidePanelSearch.module.scss";
 import { injectIntl } from "react-intl";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-const AppointmentListSidePanelSearch = props => {
+const AppointmentListSidePanelSearch = (props) => {
   const {
     value,
     onChange,
@@ -11,11 +11,11 @@ const AppointmentListSidePanelSearch = props => {
     style = "appointmentListSidePanelSearch",
     disabledInputSearch,
     onClearText,
-    intl
+    intl,
   } = props;
 
   const searchClass = classNames(style, {
-    disabled: disabledInputSearch
+    disabled: disabledInputSearch,
   });
 
   return (
@@ -39,7 +39,7 @@ const AppointmentListSidePanelSearch = props => {
         ) : (
           <i
             className={classNames("fa fa-times", {
-              "fa-times-disabled": disabledInputSearch
+              "fa-times-disabled": disabledInputSearch,
             })}
             data-testid="times"
           ></i>
@@ -50,7 +50,7 @@ const AppointmentListSidePanelSearch = props => {
 };
 
 AppointmentListSidePanelSearch.propTypes = {
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
 };
 
 export default injectIntl(AppointmentListSidePanelSearch);

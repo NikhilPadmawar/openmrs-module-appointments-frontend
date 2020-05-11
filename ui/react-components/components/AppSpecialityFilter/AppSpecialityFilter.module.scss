@@ -1,0 +1,15 @@
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.rc-tree .rc-tree-treenode span.rc-tree-switcher {
+  margin-top: 5px;
+  &.rc-tree-switcher_close {
+    background: white;
+  }
+  &.rc-tree-switcher_open {
+    background: white;
+  }
+}
+
+.rc-tree-icon__customize {
+  margin-bottom: 3px;
+}

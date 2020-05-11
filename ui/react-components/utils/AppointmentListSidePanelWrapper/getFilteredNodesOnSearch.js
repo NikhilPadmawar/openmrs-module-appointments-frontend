@@ -1,37 +1,31 @@
 const getFilteredNodesOnSearch = (transformedTreeData, searchText) => {
   const searchFilteredNodesList = transformedTreeData
-    .filter(element => {
+    .filter((element) => {
       return (
-        element.label
-          .trim()
-          .toLowerCase()
-          .includes(searchText.toLowerCase()) ||
+        element.title.trim().toLowerCase().includes(searchText.toLowerCase()) ||
         (element.children &&
-          element.children.some(subElement =>
-            subElement.label
+          element.children.some((subElement) =>
+            subElement.title
               .trim()
               .toLowerCase()
               .includes(searchText.toLowerCase())
           ))
       );
     })
-    .map(ele => {
+    .map((ele) => {
       const filteredList = Object.assign(
         {},
         ele,
-        ele.label
-          .trim()
-          .toLowerCase()
-          .includes(searchText.toLowerCase())
+        ele.title.trim().toLowerCase().includes(searchText.toLowerCase())
           ? ele
           : ele.children
           ? {
-              children: ele.children.filter(subElement =>
-                subElement.label
+              children: ele.children.filter((subElement) =>
+                subElement.title
                   .trim()
                   .toLowerCase()
                   .includes(searchText.toLowerCase())
-              )
+              ),
             }
           : null
       );

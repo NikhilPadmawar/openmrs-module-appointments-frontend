@@ -1,24 +1,24 @@
-const getFilteredNodesOnToggle = (transformedTreeData,filteredCheckedData) => {
+const getFilteredNodesOnToggle = (transformedTreeData, filteredCheckedData) => {
   const filteredNodesList = transformedTreeData
     .filter(
-      element =>
-        filteredCheckedData.some(checked => element.value === checked) ||
+      (element) =>
+        filteredCheckedData.some((checked) => element.key === checked) ||
         (element.children &&
-          element.children.some(subElement =>
-            filteredCheckedData.some(checked => subElement.value === checked)
+          element.children.some((subElement) =>
+            filteredCheckedData.some((checked) => subElement.key === checked)
           ))
     )
-    .map(element => {
+    .map((element) => {
       const newfilteredNodesList = Object.assign(
         {},
         element,
         element.children
           ? {
-              children: element.children.filter(subElement =>
+              children: element.children.filter((subElement) =>
                 filteredCheckedData.some(
-                  checked => subElement.value === checked
+                  (checked) => subElement.key === checked
                 )
-              )
+              ),
             }
           : null
       );

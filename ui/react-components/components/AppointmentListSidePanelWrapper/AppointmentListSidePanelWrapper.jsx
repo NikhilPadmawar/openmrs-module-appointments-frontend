@@ -12,8 +12,9 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import PropTypes from "prop-types";
+import AppSpecialityFilter from "../AppSpecialityFilter/AppSpecialityFilter";
 
-const AppointmentListSidePanelWrapper = props => {
+const AppointmentListSidePanelWrapper = (props) => {
   const { intl } = props;
   const [flagForToggleButton, setFlagForToggleButton] = useState(false);
   const [filteredCheckedData, setFilteredCheckedData] = useState([]);
@@ -25,7 +26,8 @@ const AppointmentListSidePanelWrapper = props => {
     setTreeData(transformedTreeData);
   }, [toggleHandler]);
 
-  const getCheckedNodeHandler = checkedNodesItemList => {
+  const getCheckedNodeHandler = (checkedNodesItemList) => {
+    console.log(checkedNodesItemList);
     setFilteredCheckedData(checkedNodesItemList);
     if (flagForToggleButton === true) {
       const filteredNodesList = GetFilteredNodesOnToggle(
@@ -43,13 +45,21 @@ const AppointmentListSidePanelWrapper = props => {
         transformedTreeData,
         filteredCheckedData
       );
+      console.log(filteredNodesList);
       setTreeData(filteredNodesList);
     } else {
+      console.log(transformedTreeData, filteredCheckedData);
+      // const newArr = transformedTreeData.map((element) => {
+      //   for (let x in filteredCheckedData) {
+      //     if (element.key != x) return element;
+      //   }
+      // });
+      // console.log(newArr);
       setTreeData(transformedTreeData);
     }
   };
 
-  const searchHandler = e => {
+  const searchHandler = (e) => {
     setSearchText(e.target.value === "" ? null : e.target.value);
     const searchFilteredNodesList = GetFilteredNodesOnSearch(
       transformedTreeData,
@@ -58,7 +68,7 @@ const AppointmentListSidePanelWrapper = props => {
     setTreeData(searchFilteredNodesList);
   };
 
-  const clearSearchTextHandler = e => {
+  const clearSearchTextHandler = (e) => {
     setSearchText((e.target.value = null));
     setTreeData(transformedTreeData);
   };
@@ -82,16 +92,20 @@ const AppointmentListSidePanelWrapper = props => {
           handleToggle={toggleHandler}
         />
       </div>
-      <AppointmentListSidePanelTree
+      {/* <AppointmentListSidePanelTree
         nodes={treeData}
         getChecked={getCheckedNodeHandler}
-      />
+      /> */}
+      <AppSpecialityFilter
+        nodes={treeData}
+        getChecked={getCheckedNodeHandler}
+      ></AppSpecialityFilter>
     </div>
   );
 };
 
 AppointmentListSidePanelWrapper.propTypes = {
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
 };
 
 export default injectIntl(AppointmentListSidePanelWrapper);

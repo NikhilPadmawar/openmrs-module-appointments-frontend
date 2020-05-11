@@ -1,9 +1,9 @@
-.mdCheckBox,
-.mdIndeterminateCheckBox {
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+.fa-check-square {
   color: #218fef;
 }
 
-.mdCheckBoxOutlineBlank {
+.fa-square-o {
   color: #979797;
 }
 
@@ -13,4 +13,10 @@
 
 label {
   display: flex;
+}
+
+.fa-plus,
+.fa-minus {
+  bottom: 2px;
+  position: relative;
 }
