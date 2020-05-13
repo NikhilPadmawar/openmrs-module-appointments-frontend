@@ -1,5 +1,11 @@
 import React from "react";
-import "./AppointmentListSidePanelSearch.module.scss";
+import {
+  searchContainer,
+  appointmentListSidePanelSearch,
+  icon,
+  faTimesDisabled,
+  disabled,
+} from "./AppointmentListSidePanelSearch.module.scss";
 import { injectIntl } from "react-intl";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -7,19 +13,21 @@ const AppointmentListSidePanelSearch = (props) => {
   const {
     value,
     onChange,
+    onFocus,
+    onBlur,
     placeholder = "Search..",
-    style = "appointmentListSidePanelSearch",
+    style = appointmentListSidePanelSearch,
     disabledInputSearch,
     onClearText,
     intl,
   } = props;
 
   const searchClass = classNames(style, {
-    disabled: disabledInputSearch,
+    [disabled]: disabledInputSearch,
   });
 
   return (
-    <div className={classNames("searchContainer")}>
+    <div className={classNames(searchContainer)}>
       <input
         data-testid="appointmentSearch"
         type="text"
@@ -29,22 +37,29 @@ const AppointmentListSidePanelSearch = (props) => {
         disabled={disabledInputSearch}
         className={searchClass}
       />
-      <button
-        className={classNames("icon")}
-        disabled={disabledInputSearch}
-        onClick={onClearText}
-      >
-        {value == null || "" ? (
-          <i className={classNames("fa fa-search")} data-testid="search"></i>
-        ) : (
+      {(value == null || "") && (
+        <button
+          className={classNames(icon)}
+          disabled={disabledInputSearch}
+          onClick={onClearText}
+        >
+          <i className={classNames("fas fa-search")} data-testid="search"></i>
+        </button>
+      )}
+      {value && (
+        <button
+          className={classNames(icon)}
+          disabled={disabledInputSearch}
+          onClick={onClearText}
+        >
           <i
-            className={classNames("fa fa-times", {
-              "fa-times-disabled": disabledInputSearch,
+            className={classNames("fas fa-times", {
+              [faTimesDisabled]: disabledInputSearch,
             })}
             data-testid="times"
           ></i>
-        )}
-      </button>
+        </button>
+      )}
     </div>
   );
 };

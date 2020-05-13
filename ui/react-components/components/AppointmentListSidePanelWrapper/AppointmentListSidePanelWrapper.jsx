@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import AppointmentListSidePanelSearch from "../AppointmentListSidePanelSearch/AppointmentListSidePanelSearch";
-import AppointmentListSidePanelTree from "../AppointmentListSidePanelTree/AppointmentListSidePanelTree";
 import Label from "../Label/Label";
 import ToggleButton from "../ToggleButton/ToggleButton";
-import "./AppointmentListSidePanelWrapper.module.scss";
-import TreeDataJson from "../AppointmentListSidePanelTree/SampleDataForTree.json";
+import { showSelectedContainer } from "./AppointmentListSidePanelWrapper.module.scss";
 import TransformTreeData from "../../utils/AppointmentListSidePanelWrapper/transformTreeData";
 import GetFilteredNodesOnToggle from "../../utils/AppointmentListSidePanelWrapper/getFilteredNodesOnToggle";
 import GetFilteredNodesOnSearch from "../../utils/AppointmentListSidePanelWrapper/getFilteredNodesOnSearch";
@@ -13,6 +11,7 @@ import { useEffect } from "react";
 import { injectIntl } from "react-intl";
 import PropTypes from "prop-types";
 import AppSpecialityFilter from "../AppSpecialityFilter/AppSpecialityFilter";
+import { getAllServices } from "../../api/__mocks__/serviceApi";
 
 const AppointmentListSidePanelWrapper = (props) => {
   const { intl } = props;
@@ -20,14 +19,24 @@ const AppointmentListSidePanelWrapper = (props) => {
   const [filteredCheckedData, setFilteredCheckedData] = useState([]);
   const [treeData, setTreeData] = useState([]);
   const [searchText, setSearchText] = useState(null);
+  const [serviceList, setServiceList] = useState([]);
 
-  const transformedTreeData = TransformTreeData(TreeDataJson);
+  const loadService = async () => {
+    const serviceList = await getAllServices();
+    setServiceList(serviceList);
+  };
+
+  useEffect(() => {
+    loadService();
+  }, []);
+
+  const transformedTreeData = TransformTreeData(serviceList);
+
   useEffect(() => {
     setTreeData(transformedTreeData);
-  }, [toggleHandler]);
+  }, [serviceList]);
 
   const getCheckedNodeHandler = (checkedNodesItemList) => {
-    console.log(checkedNodesItemList);
     setFilteredCheckedData(checkedNodesItemList);
     if (flagForToggleButton === true) {
       const filteredNodesList = GetFilteredNodesOnToggle(
@@ -45,16 +54,8 @@ const AppointmentListSidePanelWrapper = (props) => {
         transformedTreeData,
         filteredCheckedData
       );
-      console.log(filteredNodesList);
       setTreeData(filteredNodesList);
     } else {
-      console.log(transformedTreeData, filteredCheckedData);
-      // const newArr = transformedTreeData.map((element) => {
-      //   for (let x in filteredCheckedData) {
-      //     if (element.key != x) return element;
-      //   }
-      // });
-      // console.log(newArr);
       setTreeData(transformedTreeData);
     }
   };
@@ -74,14 +75,14 @@ const AppointmentListSidePanelWrapper = (props) => {
   };
 
   return (
-    <div className={classNames("AppointmentListSidePanelContainer")}>
+    <div data-testid="wrapper">
       <AppointmentListSidePanelSearch
         onChange={searchHandler}
         disabledInputSearch={flagForToggleButton}
         value={searchText}
         onClearText={clearSearchTextHandler}
       />
-      <div className={classNames("showSelectedContainer")}>
+      <div className={classNames(showSelectedContainer)}>
         <Label
           forInput="show-selected"
           translationKey="SHOW_SELECTED_LABEL"
@@ -92,14 +93,12 @@ const AppointmentListSidePanelWrapper = (props) => {
           handleToggle={toggleHandler}
         />
       </div>
-      {/* <AppointmentListSidePanelTree
-        nodes={treeData}
-        getChecked={getCheckedNodeHandler}
-      /> */}
-      <AppSpecialityFilter
-        nodes={treeData}
-        getChecked={getCheckedNodeHandler}
-      ></AppSpecialityFilter>
+      {treeData && (
+        <AppSpecialityFilter
+          nodes={treeData}
+          getChecked={getCheckedNodeHandler}
+        ></AppSpecialityFilter>
+      )}
     </div>
   );
 };

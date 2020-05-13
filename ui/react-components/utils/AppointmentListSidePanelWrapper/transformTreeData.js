@@ -15,7 +15,7 @@ const transformTreeData = (arr) => {
     if (ele.color)
       newNode["icon"] = ele.color && (
         <i
-          className={classNames("fa fa-stop")}
+          className={classNames("fas fa-stop")}
           style={{ color: ele.color }}
           aria-hidden="true"
         ></i>
@@ -23,7 +23,7 @@ const transformTreeData = (arr) => {
     else
       newNode["icon"] = (
         <i
-          className={classNames("fa fa-stop")}
+          className={classNames("fas fa-stop")}
           style={{ color: "transparent" }}
           aria-hidden="true"
         ></i>
@@ -43,7 +43,7 @@ const transformChild = (arr) => {
     if (ele.color)
       newNode["icon"] = ele.color && (
         <i
-          className={classNames("fa fa-stop")}
+          className={classNames("fas fa-stop")}
           style={{ color: ele.color }}
           aria-hidden="true"
         ></i>
@@ -51,7 +51,7 @@ const transformChild = (arr) => {
     else
       newNode["icon"] = (
         <i
-          className={classNames("fa fa-stop")}
+          className={classNames("fas fa-stop")}
           style={{ color: "transparent" }}
           aria-hidden="true"
         ></i>

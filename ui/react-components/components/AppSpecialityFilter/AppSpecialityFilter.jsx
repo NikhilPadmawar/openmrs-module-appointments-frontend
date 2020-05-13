@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { injectIntl } from "react-intl";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import "./AppSpecialityFilter.module.scss";
+import { faBackground } from "./AppSpecialityFilter.module.scss";
 import "rc-tree/assets/index.css";
 import Tree from "rc-tree";
-import { useEffect } from "react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const rcTree = (props) => {
   const { nodes, getChecked, intl } = props;
@@ -14,8 +16,18 @@ const rcTree = (props) => {
   const switcherIcon = (obj) => {
     if (obj.isLeaf) return "";
     if (obj.expanded)
-      return <i className={classNames("fa fa-minus")} aria-hidden="true"></i>;
-    return <i className={classNames("fa fa-plus")} aria-hidden="true"></i>;
+      return (
+        <FontAwesomeIcon
+          className={classNames(faBackground)}
+          icon={faMinus}
+        ></FontAwesomeIcon>
+      );
+    return (
+      <FontAwesomeIcon
+        className={classNames(faBackground)}
+        icon={faPlus}
+      ></FontAwesomeIcon>
+    );
   };
 
   return (

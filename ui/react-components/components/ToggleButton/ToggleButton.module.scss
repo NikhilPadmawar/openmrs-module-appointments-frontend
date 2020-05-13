@@ -1,12 +1,12 @@
 @import "../../variables.scss";
 
-.toggle-btn-checkbox {
+.toggleBtnCheckbox {
   height: 0;
   width: 0;
   visibility: hidden;
 }
 
-.toggle-btn-label {
+.toggleBtnLabel {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,7 +19,7 @@
   //transition: background-color 0.2s;
 }
 
-.toggle-btn-label .toggle-btn-slider {
+.toggleBtnLabel .toggleBtnSlider {
   content: "";
   position: absolute;
   width: 20px;
@@ -30,11 +30,11 @@
   box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
 }
 
-.toggle-btn-checkbox:checked + .toggle-btn-label .toggle-btn-slider {
+.toggleBtnCheckbox:checked + .toggleBtnLabel .toggleBtnSlider {
   left: 100%;
   transform: translateX(-100%);
 }
 
-.toggle-btn-label:active .toggle-btn-slider {
+.toggleBtnLabel:active .toggleBtnSlider {
   width: 20px;
 }

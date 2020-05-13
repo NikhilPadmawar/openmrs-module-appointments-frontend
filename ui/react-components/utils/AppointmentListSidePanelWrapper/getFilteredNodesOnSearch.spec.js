@@ -17,7 +17,7 @@ describe("Search node with given search text", () => {
         name: "OPD",
         uuid: "71361c6a-9f64-11e7-b330-000c29e530d2",
       },
-      uuid: "37e713fc-4283-453b-993f-9f99dae077d1",
+      key: "37e713fc-4283-453b-993f-9f99dae077d1",
       color: "#00BFFF",
       creatorName: null,
       weeklyAvailability: [

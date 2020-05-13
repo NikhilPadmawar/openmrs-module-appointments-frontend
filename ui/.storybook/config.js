@@ -1,8 +1,18 @@
-import { configure } from '@storybook/react';
+import { configure } from "@storybook/react";
 import { library, dom } from "@fortawesome/fontawesome-svg-core";
-import { faPrint } from "@fortawesome/free-solid-svg-icons/faPrint";
+import {
+  faPrint,
+  faPlus,
+  faMinus,
+  faStop,
+  faSearch,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
+library.add(faPrint, faPlus, faMinus, faStop, faSearch, faTimes);
 
-library.add(faPrint);
 dom.watch();
-configure(require.context('../react-components', true, /\.stories\.js$/), module);
+configure(
+  require.context("../react-components", true, /\.stories\.js$/),
+  module
+);
