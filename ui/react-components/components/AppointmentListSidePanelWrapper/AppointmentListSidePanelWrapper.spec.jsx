@@ -74,7 +74,7 @@ describe("AppSpecialityFilter", () => {
       },
     ];
     const { container, getByTestId, getByText } = renderWithReactIntl(
-      <AppSpecialityFilter getChecked={mockFn} nodes={nodes} />
+      <AppSpecialityFilter checkedItems={mockFn} nodes={nodes} />
     );
 
     const treeElem = container.querySelector(".rc-tree-checkbox");

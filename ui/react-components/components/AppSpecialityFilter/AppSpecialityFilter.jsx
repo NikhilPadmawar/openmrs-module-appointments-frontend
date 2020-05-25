@@ -10,8 +10,7 @@ import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const rcTree = (props) => {
-  const { nodes, getChecked, intl } = props;
-  const [checked, setChecked] = useState([]);
+  const { nodes, checkedItems, intl, checkList } = props;
 
   const switcherIcon = (obj) => {
     if (obj.isLeaf) return "";
@@ -35,10 +34,9 @@ const rcTree = (props) => {
       <Tree
         className={classNames("myCls")}
         checkable
-        checkedKeys={checked}
-        onCheck={(checked) => {
-          getChecked(checked);
-          setChecked(checked);
+        checkedKeys={checkList}
+        onCheck={(checked, info) => {
+          checkedItems(checked, info);
         }}
         treeData={nodes || []}
         switcherIcon={switcherIcon}

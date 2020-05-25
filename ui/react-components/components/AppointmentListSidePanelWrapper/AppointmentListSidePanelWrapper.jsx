@@ -20,9 +20,11 @@ const AppointmentListSidePanelWrapper = (props) => {
   const [treeData, setTreeData] = useState([]);
   const [searchText, setSearchText] = useState(null);
   const [serviceList, setServiceList] = useState([]);
+  const [filteredSearchData, setFilteredSearchData] = useState([]);
 
   const loadService = async () => {
     const serviceList = await getAllServices();
+    console.log(serviceList);
     setServiceList(serviceList);
   };
 
@@ -36,20 +38,8 @@ const AppointmentListSidePanelWrapper = (props) => {
     setTreeData(transformedTreeData);
   }, [serviceList]);
 
-  const getCheckedNodeHandler = (checkedNodesItemList) => {
-    setFilteredCheckedData(checkedNodesItemList);
+  useEffect(() => {
     if (flagForToggleButton === true) {
-      const filteredNodesList = GetFilteredNodesOnToggle(
-        transformedTreeData,
-        checkedNodesItemList
-      );
-      return filteredNodesList ? setTreeData(filteredNodesList) : null;
-    }
-  };
-
-  const toggleHandler = () => {
-    setFlagForToggleButton(!flagForToggleButton);
-    if (flagForToggleButton === false) {
       const filteredNodesList = GetFilteredNodesOnToggle(
         transformedTreeData,
         filteredCheckedData
@@ -58,6 +48,22 @@ const AppointmentListSidePanelWrapper = (props) => {
     } else {
       setTreeData(transformedTreeData);
     }
+  }, [flagForToggleButton]);
+
+  const getCheckedNodeHandler = (checkedNodesItemList, info) => {
+    console.log(checkedNodesItemList, info);
+    setFilteredCheckedData(checkedNodesItemList);
+    // if (flagForToggleButton === true) {
+    //   const filteredNodesList = GetFilteredNodesOnToggle(
+    //     transformedTreeData,
+    //     checkedNodesItemList
+    //   );
+    //   return filteredNodesList ? setTreeData(filteredNodesList) : null;
+    // }
+  };
+
+  const toggleHandler = () => {
+    setFlagForToggleButton(!flagForToggleButton);
   };
 
   const searchHandler = (e) => {
@@ -66,7 +72,7 @@ const AppointmentListSidePanelWrapper = (props) => {
       transformedTreeData,
       e.target.value
     );
-    setTreeData(searchFilteredNodesList);
+    setFilteredSearchData(searchFilteredNodesList);
   };
 
   const clearSearchTextHandler = (e) => {
@@ -93,12 +99,11 @@ const AppointmentListSidePanelWrapper = (props) => {
           handleToggle={toggleHandler}
         />
       </div>
-      {treeData && (
-        <AppSpecialityFilter
-          nodes={treeData}
-          getChecked={getCheckedNodeHandler}
-        ></AppSpecialityFilter>
-      )}
+      <AppSpecialityFilter
+        nodes={treeData}
+        checkedItems={getCheckedNodeHandler}
+        checkList={filteredCheckedData}
+      ></AppSpecialityFilter>
     </div>
   );
 };
