@@ -72,7 +72,8 @@ const AppointmentListSidePanelWrapper = (props) => {
       transformedTreeData,
       e.target.value
     );
-    setFilteredSearchData(searchFilteredNodesList);
+    console.log(searchFilteredNodesList);
+    setTreeData(searchFilteredNodesList);
   };
 
   const clearSearchTextHandler = (e) => {
